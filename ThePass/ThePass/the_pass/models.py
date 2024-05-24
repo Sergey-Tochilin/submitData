@@ -15,21 +15,28 @@ class Coords(models.Model):
     height = models.IntegerField(verbose_name='Высота')
 
 class Level(models.Model):
-    EASY = '1А'
-    NORMAL = '2А'
-    HARD = '3А'
 
+    level_1 = '1А'
+    level_2 = '1Б'
+    level_3 = '2А'
+    level_4 = '2Б'
+    level_5 = '3А'
+    level_6 = '3Б'
 
     LEVEL_CHOICES = {
-        ('1A', 'EASY'),
-        ('2A', 'NORMAL'),
-        ('3A', 'HARD'),
+        (level_1, '1А'),
+        (level_2, '1Б'),
+        (level_3, '2А'),
+        (level_4, '2Б'),
+        (level_5, '3А'),
+        (level_6, '3Б'),
     }
 
-    winter = models.CharField(max_length=2, choices=LEVEL_CHOICES, default='1A', verbose_name='Зима')
-    spring = models.CharField(max_length=2, choices=LEVEL_CHOICES, default='1A', verbose_name='Весна')
-    summer = models.CharField(max_length=2, choices=LEVEL_CHOICES, default='1A', verbose_name='Лето')
-    autumn = models.CharField(max_length=2, choices=LEVEL_CHOICES, default='1A', verbose_name='Осень')
+    winter = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=level_1, verbose_name='Зима')
+    summer = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=level_1, verbose_name='Лето')
+    autumn = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=level_1, verbose_name='Осень')
+    spring = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=level_1, verbose_name='Весна')
+
 
 class Pereval(models.Model):
     NEW = 'NW'
