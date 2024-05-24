@@ -15,46 +15,41 @@ class Coords(models.Model):
     height = models.IntegerField(verbose_name='Высота')
 
 class Level(models.Model):
-    level_1 = '1А'
-    level_2 = '1Б'
-    level_3 = '2А'
-    level_4 = '2Б'
-    level_5 = '3А'
-    level_6 = '3Б'
+    EASY = '1А'
+    NORMAL = '2А'
+    HARD = '3А'
+
 
     LEVEL_CHOICES = {
-        (level_1, '1А'),
-        (level_2, '1Б'),
-        (level_3, '2А'),
-        (level_4, '2Б'),
-        (level_5, '3А'),
-        (level_6, '3Б')
+        ('1A', 'EASY'),
+        ('2A', 'NORMAL'),
+        ('3A', 'HARD'),
     }
 
-    winter = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=level_1, verbose_name='Зима')
-    spring = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=level_1, verbose_name='Весна')
-    summer = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=level_1, verbose_name='Лето')
-    autumn = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=level_1, verbose_name='Осень')
+    winter = models.CharField(max_length=2, choices=LEVEL_CHOICES, default='1A', verbose_name='Зима')
+    spring = models.CharField(max_length=2, choices=LEVEL_CHOICES, default='1A', verbose_name='Весна')
+    summer = models.CharField(max_length=2, choices=LEVEL_CHOICES, default='1A', verbose_name='Лето')
+    autumn = models.CharField(max_length=2, choices=LEVEL_CHOICES, default='1A', verbose_name='Осень')
 
 class Pereval(models.Model):
-    status_new = 'new'
-    status_pending = 'pending'
-    status_accepted = 'accepted'
-    status_rejected = 'rejected'
+    NEW = 'NW'
+    PENDING = 'PN'
+    ACCEPTED = 'AC'
+    REJECTED = 'RJ'
 
     STATUS_CHOICES = {
-        (status_new, 'новый'),
-        (status_pending, 'в работе'),
-        (status_accepted, 'принят'),
-        (status_rejected, 'отклонён')
+        ('NW', 'новый'),
+        ('PN', 'в работе'),
+        ('AC', 'принят'),
+        ('RJ', 'отклонён')
     }
 
-    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default=status_new)
+    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='NW')
     beauty_name = models.CharField(max_length=255, default='пер.')
     title = models.CharField(max_length=255, verbose_name='Название')
     other_titles = models.CharField(max_length=255, verbose_name='Альтернативное название')
     connect = models.CharField(max_length=500, verbose_name='Что соединяет')
-    add_time = models.DateTimeField(auto_now=True)
+    add_time = models.DateTimeField(auto_now_add=True)
 
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, verbose_name='Автор')
     coords = models.OneToOneField(Coords, on_delete=models.CASCADE, verbose_name='Координаты')
@@ -65,6 +60,9 @@ class Image(models.Model):
     title = models.CharField(max_length=2000, verbose_name='Описание изображения')
 
     pereval = models.ForeignKey(Pereval, on_delete=models.CASCADE, verbose_name='Изображения')
+
+    def __str__(self):
+        return self.data, self.title
 
 
 
