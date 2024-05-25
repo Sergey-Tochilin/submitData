@@ -66,7 +66,7 @@ class Images(models.Model):
     data = models.CharField(max_length=2000, verbose_name='ссылка на изображение')
     title = models.TextField(verbose_name='Описание изображения')
 
-    pereval = models.ForeignKey(Pereval, on_delete=models.CASCADE, verbose_name='Изображения')
+    pereval = models.ForeignKey(Pereval, on_delete=models.CASCADE, verbose_name='Изображения', related_name='images')
 
     def __str__(self):
         return self.data, self.title
