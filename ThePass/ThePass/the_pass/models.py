@@ -62,9 +62,9 @@ class Pereval(models.Model):
     coords = models.OneToOneField(Coords, on_delete=models.CASCADE, verbose_name='Координаты')
     level = models.ForeignKey(Level, on_delete=models.CASCADE, verbose_name='Уровень сложности')
 
-class Image(models.Model):
+class Images(models.Model):
     data = models.CharField(max_length=2000, verbose_name='ссылка на изображение')
-    title = models.CharField(max_length=2000, verbose_name='Описание изображения')
+    title = models.TextField(verbose_name='Описание изображения')
 
     pereval = models.ForeignKey(Pereval, on_delete=models.CASCADE, verbose_name='Изображения')
 

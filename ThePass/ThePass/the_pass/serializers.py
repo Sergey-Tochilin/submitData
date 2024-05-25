@@ -17,17 +17,20 @@ class LevelSerializer(serializers.ModelSerializer):
         model = Level
         fields = ['winter', 'spring', 'summer', 'autumn']
 
-class ImageSerializer(serializers.ModelSerializer):
+class ImagesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Image
+        model = Images
         fields = ['data', 'title']
 
 class PerevalSerializer(WritableNestedModelSerializer):
     user = MyUserSerializer()
     coords = CoordsSerializer()
     level = LevelSerializer()
-    image = ImageSerializer(many=True)
+    images = ImagesSerializer(many=True)
 
     class Meta:
         model = Pereval
-        fields = ['beauty_name', 'title', 'other_titles', 'connect', 'add_time', 'user', 'coords', 'level', 'status', 'image']
+        fields = ['beauty_name', 'title', 'other_titles', 'connect', 'add_time', 'user',
+                  'coords', 'level', 'status', 'images']
+
+
