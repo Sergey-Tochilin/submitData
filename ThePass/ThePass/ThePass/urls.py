@@ -21,7 +21,7 @@ from the_pass import views
 
 
 router = routers.DefaultRouter()
-router.register(r'pereval/submitdata', views.PerevalViewset)
+router.register(r'perevals', views.PerevalViewset)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
