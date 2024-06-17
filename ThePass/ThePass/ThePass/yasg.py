@@ -6,7 +6,7 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Rest API 'ThePass' для сайта Федерации спортивного туризма России",
+      title="Rest API 'Pereval' для сайта Федерации спортивного туризма России",
       default_version='v1',
       description="Методы создания, получения и редактирования отчётов туристов о преодолении горных перевалов",
       license=openapi.License(name="BSD License"),
