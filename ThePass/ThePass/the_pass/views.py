@@ -19,7 +19,7 @@ class PerevalViewset(viewsets.ModelViewSet):
                 instance = serializer.save()
                 return Response({"status": 200, "message": "Успешно отправлено", "id": instance.id})
             else:
-                return Response({"status": 400, "message": "Bad Request(нехватка полей)", "id": None})
+                return Response({"status": 400, "message": "Bad Request", "id": None})
         except Exception as no_connection_to_the_db:
             return Response({"status": 500, "message": "Ошибка подключения к базе данных", "id": None})
 
@@ -29,7 +29,7 @@ class PerevalViewset(viewsets.ModelViewSet):
             serializer = PerevalSerializer(pereval)
             return Response(data=serializer.data)
         except Http404:
-            return Response({"state": 0, "message": "Запись не найдена"})
+            return Response({"state": 0, "message": "Запись с таким id не найдена"})
 
     def partial_update(self, request, *args, **kwargs):
         pereval = self.get_object()
@@ -42,6 +42,8 @@ class PerevalViewset(viewsets.ModelViewSet):
                 return Response({'state': 1, 'message': 'Запись успешно изменена',})
             else:
                 return Response({'state': 0, 'message': serializer.errors})
+
+
 
 
 

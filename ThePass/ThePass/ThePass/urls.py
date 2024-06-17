@@ -23,7 +23,7 @@ from .yasg import urlpatterns as doc_urls
 
 
 router = routers.DefaultRouter()
-router.register(r'perevals', views.PerevalViewset)
+router.register(r'pereval', views.PerevalViewset)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

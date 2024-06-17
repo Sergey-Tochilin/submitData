@@ -7,7 +7,7 @@ from .models import *
 
 # Create your tests here.
 class PerevalAPITestCase(APITestCase):
-    def setup_pereval_models_test(self):
+    def setUp(self):
         self.user = MyUser.objects.create(
             email="qwerty@mail.ru",
             fam="Фамилия",
@@ -27,7 +27,7 @@ class PerevalAPITestCase(APITestCase):
             autumn="2А",
         )
         self.pereval = Pereval.objects.create(
-            beauty_title="пер.",
+            beauty_name="пер.",
             title="Название",
             other_titles="Альтернативное название",
             connect="Соединяет что-то",
@@ -39,7 +39,7 @@ class PerevalAPITestCase(APITestCase):
         Images.objects.create(data="<картинка2>", title="Подъем", pereval=self.pereval)
 
     def submitData_test(self):
-        url = reverse('perevals')
+        url = reverse('pereval-list')
         data = {
             "beauty_name": "пер.",
             "title": "Новый",
@@ -80,10 +80,10 @@ class PerevalAPITestCase(APITestCase):
         self.assertEqual(response.data['status'], 200)
         self.assertEqual(response.data['message'], "Отправлено успешно")
 
-    def missing_field_submitData_test(self):
+    def test_missing_filed(self):
         '''Пропускаю одно поле, закоментировав его'''
 
-        url = reverse('perevals')
+        url = reverse('pereval-list')
         data = {
             "beauty_name": "пер.",
             "title": "Новый",
@@ -116,3 +116,20 @@ class PerevalAPITestCase(APITestCase):
         self.assertIn('message', response.data)
         self.assertEqual(response.data['status'], 400)
         self.assertEqual(response.data['message'], "Bad Request")
+
+    def test_retrieve_success(self):
+        url = reverse('pereval-detail', kwargs={'pk': self.pereval.pk})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['id'], self.pereval.id)
+        self.assertEqual(response.data['beauty_name'], self.pereval.beauty_name)
+        self.assertEqual(response.data['title'], self.pereval.title)
+
+    def test_fail_retrieve(self):
+        url = reverse('pereval-detail', kwargs={'pk': self.pereval.pk + 1})
+        response = self.client.get(url)
+        self.assertIn('state', response.data)
+        self.assertIn('message', response.data)
+        self.assertEqual(response.data['state'], 0)
+        self.assertEqual(response.data['message'], "Запись с таким id не найдена")
+
