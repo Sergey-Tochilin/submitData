@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import viewsets
 from django.http import Http404
+from drf_yasg.utils import swagger_auto_schema
 
 from .models import *
 from .serializers import *
@@ -11,6 +12,15 @@ class PerevalViewset(viewsets.ModelViewSet):
     queryset = Pereval.objects.all()
     serializer_class = PerevalSerializer
     filterset_fields = ['user__email']
+
+    # убираем нереализованные методы delete, put
+    @swagger_auto_schema(auto_schema=None)
+    def update(self, request, *args, **kwargs):
+        pass
+
+    @swagger_auto_schema(auto_schema=None)
+    def destroy(self, request, *args, **kwargs):
+        pass
 
     def create(self, request, *args, **kwargs):
         try:
