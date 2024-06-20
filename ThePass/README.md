@@ -93,4 +93,10 @@ ______
 #### Выводит список данных обо всех объектах, которые пользователь с указанной почтой отправил на сервер. При реализации использована фильтрация по адресу электронной почты пользователя с помощью пакета django-filter
 ____
 Документация сгенерирована при помощи пакета `drf-yasg`
+`http://127.0.0.1:8000/swagger/`
 ____
+Проект опубликован на хостинге `pythonanywhere`:
++ API Pereval: https://sergeytochilin.pythonanywhere.com/api/pereval/
++ Документация Swagger: https://sergeytochilin.pythonanywhere.com/swagger/
+<hr>
+
