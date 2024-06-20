@@ -19,12 +19,16 @@ from django.urls import path, include
 from rest_framework import routers
 from the_pass import views
 
+from .yasg import urlpatterns as doc_urls
+
 
 router = routers.DefaultRouter()
-router.register(r'perevals', views.PerevalViewset)
+router.register(r'pereval', views.PerevalViewset)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
 
 ]
+
+urlpatterns += doc_urls
